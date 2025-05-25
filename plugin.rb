@@ -4,7 +4,7 @@
 # about: TODO
 # meta_topic_id: TODO
 # version: 0.0.1
-# authors: Discourse
+# authors: Alteras1, Ghan
 # url: TODO
 # required_version: 2.7.0
 

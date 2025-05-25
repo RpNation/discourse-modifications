@@ -2,3 +2,8 @@ discourse_modifications:
   discourse_modifications_enabled:
     default: false
     client: true
+posting:
+  max_post_length:
+    client: true
+    default: 500000
+    max: 500000
