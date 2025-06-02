@@ -25,4 +25,14 @@ after_initialize do
   # and applying a Initializer pattern to load them.
 
   Topic.slug_computed_callbacks << ::DiscourseModifications::TopicSlug.method(:slug_for_topic)
+
+  # add permalink normalization
+  XF_TOPIC_LINK_NORMALIZATION = '/threads\/[^.]+\.([0-9]+)\/?/threads/\1'
+  normalizations = SiteSetting.permalink_normalizations
+  normalizations = normalizations.blank? ? [] : normalizations.split("|")
+
+  normalizations << XF_TOPIC_LINK_NORMALIZATION if normalizations.exclude?(XF_TOPIC_LINK_NORMALIZATION)
+
+  SiteSetting.permalink_normalizations = normalizations.join("|")
+
 end
