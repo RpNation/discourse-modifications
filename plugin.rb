@@ -14,6 +14,8 @@ enabled_site_setting :discourse_modifications_enabled
 
 module ::DiscourseModifications
   PLUGIN_NAME = "discourse-modifications"
+
+  XF_TOPIC_LINK_NORMALIZATION = '/threads\/[^.]+\.([0-9]+)\/?/threads/\1'
 end
 
 require_relative "lib/discourse_modifications/engine"
@@ -25,4 +27,13 @@ after_initialize do
   # and applying a Initializer pattern to load them.
 
   Topic.slug_computed_callbacks << ::DiscourseModifications::TopicSlug.method(:slug_for_topic)
+
+  # add permalink normalization
+  normalizations = SiteSetting.permalink_normalizations
+  normalizations = normalizations.blank? ? [] : normalizations.split("|")
+
+  normalizations << ::DiscourseModifications::XF_TOPIC_LINK_NORMALIZATION if normalizations.exclude?(::DiscourseModifications::XF_TOPIC_LINK_NORMALIZATION)
+
+  SiteSetting.permalink_normalizations = normalizations.join("|")
+
 end
