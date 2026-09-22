@@ -5,4 +5,6 @@ DiscourseModifications::Engine.routes.draw do
   # define routes here
 end
 
-Discourse::Application.routes.draw { mount ::DiscourseModifications::Engine, at: "discourse-modifications" }
+Discourse::Application.routes.draw do
+  mount ::DiscourseModifications::Engine, at: "discourse-modifications"
+end

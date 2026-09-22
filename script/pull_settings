@@ -1,0 +1,115 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Pulls overridden site settings from a live Discourse site and writes them
+# to config/site_setting_overrides.yml (or a path of your choosing).
+#
+# Once written, apply the settings with:
+#   rake rpn:apply_settings
+
+require "net/http"
+require "json"
+require "yaml"
+require "uri"
+require "optparse"
+
+options = { output: File.expand_path("../config/site_setting_overrides.yml", __dir__) }
+
+parser =
+  OptionParser.new do |opts|
+    opts.banner = "Usage: script/pull_settings --url URL --api-key KEY [options]"
+    opts.separator ""
+    opts.separator "Options:"
+
+    opts.on("-u", "--url URL", "Base URL of the Discourse site") { |v| options[:url] = v }
+    opts.on("-k", "--api-key KEY", "Admin API key") { |v| options[:api_key] = v }
+    opts.on(
+      "-o",
+      "--output PATH",
+      "Output file path (default: config/site_setting_overrides.yml)",
+    ) { |v| options[:output] = v }
+    opts.on("--dry-run", "Print settings without writing the file") do
+      options[:dry_run] = true
+    end
+
+    opts.separator ""
+    opts.separator "Example:"
+    opts.separator "  script/pull_settings --url https://community.example.com --api-key abc123"
+  end
+
+parser.parse!
+
+abort parser.to_s if options[:url].nil? || options[:api_key].nil?
+
+uri = URI("#{options[:url].chomp("/")}/admin/site_settings.json")
+
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = uri.scheme == "https"
+http.open_timeout = 10
+http.read_timeout = 30
+
+request = Net::HTTP::Get.new(uri)
+request["Api-Key"] = options[:api_key]
+request["Api-Username"] = "system"
+request["Accept"] = "application/json"
+
+print "Fetching settings from #{options[:url]}... "
+response = http.request(request)
+puts response.code
+
+unless response.is_a?(Net::HTTPSuccess)
+  abort "Error: HTTP #{response.code} #{response.message}\n#{response.body}"
+end
+
+settings = JSON.parse(response.body)["site_settings"]
+
+# Types whose values cannot be expressed as plain YAML (require live DB IDs)
+UNSUPPORTED_TYPES = %w[upload uploaded_image_list objects].freeze
+
+def coerce(value, type)
+  case type
+  when "bool"
+    value == "true"
+  when "integer"
+    value.to_i
+  when "float"
+    value.to_f
+  else
+    value
+  end
+end
+
+overrides =
+  settings
+    .select { |s| s["value"] != s["default"] }
+    .reject { |s| s["secret"] }
+    .reject { |s| UNSUPPORTED_TYPES.include?(s["type"]) }
+    .sort_by { |s| s["setting"] }
+    .to_h { |s| [s["setting"], coerce(s["value"], s["type"])] }
+
+puts "Found #{overrides.size} overridden setting(s)."
+
+header = <<~YAML
+  # Site setting overrides for this Discourse instance.
+  # Apply with: rake rpn:apply_settings
+  #
+  # Types reference:
+  #   bool        → true / false
+  #   integer     → 42
+  #   float       → 1.5
+  #   string/enum → "value"
+  #   list types  → "value1|value2"  (pipe-separated string, not a YAML list)
+  #   upload      → not supported (requires live database IDs)
+
+YAML
+
+yaml_body = overrides.empty? ? "" : overrides.to_yaml.sub(/\A---\n/, "")
+output = header + yaml_body
+
+if options[:dry_run]
+  puts "\n--- dry run: would write to #{options[:output]} ---"
+  puts output
+else
+  File.write(options[:output], output)
+  puts "Written to #{options[:output]}"
+end
