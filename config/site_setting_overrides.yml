@@ -1,0 +1,13 @@
+# Site setting overrides for this Discourse instance.
+# Apply with: rake rpn:apply_settings
+#
+# Types reference:
+#   bool        → true / false
+#   integer     → 42
+#   float       → 1.5
+#   string/enum → "value"
+#   list types  → "value1|value2"  (pipe-separated string, not a YAML list)
+#   upload      → not supported (requires live database IDs)
+
+max_post_length: 500000
+permalink_normalizations: '/threads\/[^.]+\.([0-9]+)\/?/threads/\1'

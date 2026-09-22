@@ -14,8 +14,6 @@ enabled_site_setting :discourse_modifications_enabled
 
 module ::DiscourseModifications
   PLUGIN_NAME = "discourse-modifications"
-
-  XF_TOPIC_LINK_NORMALIZATION = '/threads\/[^.]+\.([0-9]+)\/?/threads/\1'
 end
 
 require_relative "lib/discourse_modifications/engine"
@@ -26,12 +24,4 @@ after_initialize do
   # correctly everywhere Slug.for is called — AR lifecycle hooks, bulk import,
   # category slugs, etc.
   Slug.singleton_class.prepend(::DiscourseModifications::SlugAsciiPatch)
-
-  # add permalink normalization
-  normalizations = SiteSetting.permalink_normalizations
-  normalizations = normalizations.blank? ? [] : normalizations.split("|")
-  if normalizations.exclude?(::DiscourseModifications::XF_TOPIC_LINK_NORMALIZATION)
-    normalizations << ::DiscourseModifications::XF_TOPIC_LINK_NORMALIZATION
-  end
-  SiteSetting.permalink_normalizations = normalizations.join("|")
 end

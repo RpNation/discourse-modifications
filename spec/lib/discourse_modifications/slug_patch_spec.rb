@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe "Slug.ascii_generator AnyAscii patch" do
+RSpec.describe Slug do
   before do
     allow(SiteSetting).to receive(:slug_generation_method).and_return("ascii")
     allow(SiteSetting).to receive(:default_locale).and_return("en")
