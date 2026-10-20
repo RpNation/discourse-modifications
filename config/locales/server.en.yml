@@ -1,1 +1,14 @@
 en:
+  site_settings:
+    topic_owner_bump_cooldown_minutes: "How many minutes a topic owner must wait after the latest reply or bump before they can bump their topic again (60 = 1 hour, 1440 = 1 day, 10080 = 1 week, 43200 = 30 days). Bumping is turned on per category, in the category's settings."
+  discourse_modifications:
+    topic_owner_bump:
+      cooldown_days:
+        one: "You can bump this topic again in %{count} day."
+        other: "You can bump this topic again in %{count} days."
+      cooldown_hours:
+        one: "You can bump this topic again in %{count} hour."
+        other: "You can bump this topic again in %{count} hours."
+      cooldown_minutes:
+        one: "You can bump this topic again in %{count} minute."
+        other: "You can bump this topic again in %{count} minutes."

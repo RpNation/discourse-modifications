@@ -2,6 +2,10 @@ discourse_modifications:
   discourse_modifications_enabled:
     default: false
     client: true
+  topic_owner_bump_cooldown_minutes:
+    default: 1440
+    min: 1
+    max: 43200
 posting:
   max_post_length:
     client: true
