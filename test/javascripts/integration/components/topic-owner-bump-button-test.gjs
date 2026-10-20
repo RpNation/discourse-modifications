@@ -3,7 +3,7 @@ import { render, settled } from "@ember/test-helpers";
 import { module, test } from "qunit";
 import { setupRenderingTest } from "discourse/tests/helpers/component-test";
 import { fakeTime } from "discourse/tests/helpers/qunit-helpers";
-import TopicOwnerBumpButton from "discourse/plugins/discourse-modifications/discourse/connectors/topic-footer-main-buttons-before-create/topic-owner-bump-button";
+import TopicOwnerBumpButton from "discourse/plugins/discourse-rpn/discourse/connectors/topic-footer-main-buttons-before-create/topic-owner-bump-button";
 
 const NOW = "2026-10-20T12:00:00Z";
 

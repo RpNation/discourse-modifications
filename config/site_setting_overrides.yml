@@ -25,9 +25,9 @@ default_trust_level: '1'
 desktop_category_page_style: categories_with_latest_topics
 disable_emails: non-staff
 discourse_category_latest_topics_enabled: true
-discourse_modifications_enabled: true
 discourse_post_event_allowed_on_groups: 1|2
 discourse_reactions_enabled_reactions: cookie|light_bulb|framed_picture|revolving_hearts|artist_palette|black_nib|star
+discourse_rpn_enabled: true
 discourse_templates_categories: '52'
 discourse_templates_enable_private_templates: true
 discourse_templates_groups_allowed_private_templates: '10'

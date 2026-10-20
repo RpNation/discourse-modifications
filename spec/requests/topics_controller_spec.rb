@@ -44,7 +44,7 @@ RSpec.describe TopicsController do
     end
 
     it "does not tell the topic owner when the plugin is disabled" do
-      SiteSetting.discourse_modifications_enabled = false
+      SiteSetting.discourse_rpn_enabled = false
       sign_in(owner)
 
       get "/t/#{topic.id}.json"

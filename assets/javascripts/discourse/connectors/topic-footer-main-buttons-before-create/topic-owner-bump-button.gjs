@@ -65,10 +65,10 @@ export default class TopicOwnerBumpButton extends Component {
 
   get label() {
     if (!this.isCoolingDown) {
-      return i18n("discourse_modifications.topic_owner_bump.button_label");
+      return i18n("discourse_rpn.topic_owner_bump.button_label");
     }
 
-    return i18n("discourse_modifications.topic_owner_bump.button_countdown", {
+    return i18n("discourse_rpn.topic_owner_bump.button_countdown", {
       timeLeft: formatTimeLeft(this.remainingSeconds),
     });
   }
@@ -90,10 +90,9 @@ export default class TopicOwnerBumpButton extends Component {
     this.isBumping = true;
 
     try {
-      const result = await ajax(
-        `/discourse-modifications/topics/${this.topic.id}/bump`,
-        { type: "POST" }
-      );
+      const result = await ajax(`/discourse-rpn/topics/${this.topic.id}/bump`, {
+        type: "POST",
+      });
       this.topic.owner_bump_available_at = result.owner_bump_available_at;
     } catch (error) {
       popupAjaxError(error);
@@ -110,7 +109,7 @@ export default class TopicOwnerBumpButton extends Component {
       @disabled={{this.isCoolingDown}}
       @icon="hand-point-right"
       @isLoading={{this.isBumping}}
-      @title="discourse_modifications.topic_owner_bump.button_title"
+      @title="discourse_rpn.topic_owner_bump.button_title"
       @translatedLabel={{this.label}}
       {{this.countdown this.topic.owner_bump_available_at}}
     />

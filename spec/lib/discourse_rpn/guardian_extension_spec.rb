@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DiscourseModifications::GuardianExtension do
+RSpec.describe DiscourseRpn::GuardianExtension do
   fab!(:owner) { Fabricate(:user, refresh_auto_groups: true) }
   fab!(:category, :topic_owner_bump_category)
   fab!(:topic) { Fabricate(:topic, user: owner, category:) }
@@ -13,7 +13,7 @@ RSpec.describe DiscourseModifications::GuardianExtension do
     end
 
     it "returns false when the plugin is disabled" do
-      SiteSetting.discourse_modifications_enabled = false
+      SiteSetting.discourse_rpn_enabled = false
 
       expect(owner.guardian.can_bump_topic?(topic)).to eq(false)
     end

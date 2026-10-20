@@ -1,6 +1,6 @@
-discourse_modifications:
-  discourse_modifications_enabled:
-    default: false
+discourse_rpn:
+  discourse_rpn_enabled:
+    default: true
     client: true
   topic_owner_bump_cooldown_minutes:
     default: 1440

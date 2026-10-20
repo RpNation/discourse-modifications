@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ::DiscourseModifications
+module ::DiscourseRpn
   class TopicBumpsController < ::ApplicationController
     requires_plugin PLUGIN_NAME
     requires_login

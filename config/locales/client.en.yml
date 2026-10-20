@@ -3,11 +3,11 @@ en:
     admin:
       site_settings:
         categories:
-          discourse_modifications: "Discourse Modifications"
+          discourse_rpn: "RpNation"
   js:
     action_codes:
       owner_bumped: "Bumped %{when}"
-    discourse_modifications:
+    discourse_rpn:
       topic_owner_bump:
         button_label: "Bump"
         button_title: "Move this topic to the top of the latest list"
