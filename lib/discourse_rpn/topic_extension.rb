@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ::DiscourseModifications
+module ::DiscourseRpn
   module TopicExtension
     extend ActiveSupport::Concern
 

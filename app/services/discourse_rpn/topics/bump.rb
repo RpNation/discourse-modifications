@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ::DiscourseModifications
+module ::DiscourseRpn
   module Topics
     class Bump
       include Service::Base

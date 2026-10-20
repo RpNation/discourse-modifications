@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DiscourseModifications::TopicExtension do
+RSpec.describe DiscourseRpn::TopicExtension do
   fab!(:owner) { Fabricate(:user, refresh_auto_groups: true) }
   fab!(:topic) { create_post(user: owner, created_at: 2.days.ago).topic }
 
@@ -25,12 +25,7 @@ RSpec.describe DiscourseModifications::TopicExtension do
 
     it "keeps the cooldown of the latest owner bump after a later reply is deleted" do
       bump_post =
-        topic.add_small_action(
-          owner,
-          DiscourseModifications::TOPIC_OWNER_BUMP_ACTION_CODE,
-          nil,
-          bump: true,
-        )
+        topic.add_small_action(owner, DiscourseRpn::TOPIC_OWNER_BUMP_ACTION_CODE, nil, bump: true)
       reply = create_post(user: owner, topic:)
       PostDestroyer.new(owner, reply).destroy
 
@@ -39,12 +34,7 @@ RSpec.describe DiscourseModifications::TopicExtension do
 
     it "keeps the cooldown of a deleted owner bump after a later reply is deleted" do
       bump_post =
-        topic.add_small_action(
-          owner,
-          DiscourseModifications::TOPIC_OWNER_BUMP_ACTION_CODE,
-          nil,
-          bump: true,
-        )
+        topic.add_small_action(owner, DiscourseRpn::TOPIC_OWNER_BUMP_ACTION_CODE, nil, bump: true)
       PostDestroyer.new(Fabricate(:admin), bump_post).destroy
       reply = create_post(user: owner, topic:)
       PostDestroyer.new(owner, reply).destroy

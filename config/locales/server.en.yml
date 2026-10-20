@@ -1,7 +1,8 @@
 en:
   site_settings:
+    discourse_rpn_enabled: "Enable RpNation site customisations"
     topic_owner_bump_cooldown_minutes: "How many minutes a topic owner must wait after the latest reply or bump before they can bump their topic again (60 = 1 hour, 1440 = 1 day, 10080 = 1 week, 43200 = 30 days). Bumping is turned on per category, in the category's settings."
-  discourse_modifications:
+  discourse_rpn:
     topic_owner_bump:
       cooldown_days:
         one: "You can bump this topic again in %{count} day."

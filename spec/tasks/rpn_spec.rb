@@ -2,7 +2,7 @@
 
 RSpec.describe "rpn rake tasks" do
   let(:overrides_path) do
-    Rails.root.join("plugins/discourse-modifications/config/site_setting_overrides.yml").to_s
+    Rails.root.join("plugins/discourse-rpn/config/site_setting_overrides.yml").to_s
   end
 
   before { enable_current_plugin }

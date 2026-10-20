@@ -15,7 +15,7 @@ RSpec.describe "Owner bump live updates" do
   def owner_bump_messages(&)
     MessageBus
       .track_publish("/topic/#{topic.id}", &)
-      .select { |message| message.data[:type] == DiscourseModifications::OWNER_BUMP_MESSAGE_TYPE }
+      .select { |message| message.data[:type] == DiscourseRpn::OWNER_BUMP_MESSAGE_TYPE }
   end
 
   it "sends the owner the restarted cooldown when someone replies" do
@@ -45,7 +45,7 @@ RSpec.describe "Owner bump live updates" do
   end
 
   it "sends nothing when the owner can't bump the topic" do
-    category.custom_fields[DiscourseModifications::TOPIC_OWNER_BUMP_ENABLED_CUSTOM_FIELD] = false
+    category.custom_fields[DiscourseRpn::TOPIC_OWNER_BUMP_ENABLED_CUSTOM_FIELD] = false
     category.save_custom_fields
 
     messages = owner_bump_messages { create_post(user: replier, topic:) }
@@ -54,7 +54,7 @@ RSpec.describe "Owner bump live updates" do
   end
 
   it "sends nothing when the plugin is disabled" do
-    SiteSetting.discourse_modifications_enabled = false
+    SiteSetting.discourse_rpn_enabled = false
 
     messages = owner_bump_messages { create_post(user: replier, topic:) }
 

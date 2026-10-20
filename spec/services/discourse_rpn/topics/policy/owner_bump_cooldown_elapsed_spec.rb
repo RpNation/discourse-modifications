@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DiscourseModifications::Topics::Policy::OwnerBumpCooldownElapsed do
+RSpec.describe DiscourseRpn::Topics::Policy::OwnerBumpCooldownElapsed do
   subject(:policy) { described_class.new(context) }
 
   fab!(:topic)

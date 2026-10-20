@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module ::DiscourseModifications
+module ::DiscourseRpn
   module GuardianExtension
     def can_bump_topic?(topic)
-      return false if !SiteSetting.discourse_modifications_enabled
+      return false if !SiteSetting.discourse_rpn_enabled
       return false if !is_my_own?(topic)
       return false if topic.private_message? || topic.closed? || topic.archived? || !topic.visible?
 

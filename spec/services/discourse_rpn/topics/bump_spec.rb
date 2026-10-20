@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DiscourseModifications::Topics::Bump do
+RSpec.describe DiscourseRpn::Topics::Bump do
   describe described_class::Contract, type: :model do
     it { is_expected.to validate_presence_of(:topic_id) }
   end
@@ -55,12 +55,7 @@ RSpec.describe DiscourseModifications::Topics::Bump do
     context "when a deleted reply rewound the topic past the latest owner bump" do
       before do
         freeze_time(2.hours.ago) do
-          topic.add_small_action(
-            owner,
-            DiscourseModifications::TOPIC_OWNER_BUMP_ACTION_CODE,
-            nil,
-            bump: true,
-          )
+          topic.add_small_action(owner, DiscourseRpn::TOPIC_OWNER_BUMP_ACTION_CODE, nil, bump: true)
         end
         reply = create_post(user: owner, topic:, created_at: 1.hour.ago)
         PostDestroyer.new(owner, reply).destroy
@@ -79,7 +74,7 @@ RSpec.describe DiscourseModifications::Topics::Bump do
           topic:,
           user: owner,
           post_type: Post.types[:small_action],
-          action_code: DiscourseModifications::TOPIC_OWNER_BUMP_ACTION_CODE,
+          action_code: DiscourseRpn::TOPIC_OWNER_BUMP_ACTION_CODE,
         )
       end
 

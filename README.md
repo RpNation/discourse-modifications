@@ -1,4 +1,4 @@
-# discourse-modifications
+# discourse-rpn
 
 Site-specific customisations for RpNation
 
@@ -9,7 +9,7 @@ Topic owners can bump their own topic with a **Bump** button in the topic footer
 - **Per category:** enable it with "Allow topic owners to bump their topics" on the category's Settings tab (custom field `topic_owner_bump_enabled`). Subcategories inherit it from any ancestor, and can't opt out while an ancestor is opted in.
 - **Cooldown:** `topic_owner_bump_cooldown_minutes` (default 1440 = 1 day, max 43200 = 30 days) counted from the topic's latest reply or bump, so replying also restarts the cooldown.
 - **Who:** only the topic owner, and only while they could reply. PMs, closed, archived and unlisted topics can't be bumped.
-- **API:** `POST /discourse-modifications/topics/:topic_id/bump`.
+- **API:** `POST /discourse-rpn/topics/:topic_id/bump`.
 
 ## Site setting overrides
 
