@@ -1,0 +1,10 @@
+// Levels below watching first post.
+.rpn-locked-watch-category {
+  .notifications-tracking-btn {
+    &[data-level-name="muted"],
+    &[data-level-name="regular"],
+    &[data-level-name="tracking"] {
+      display: none;
+    }
+  }
+}

@@ -36,7 +36,12 @@ after_initialize do
     Category.include(DiscourseRpn::CategoryExtension)
     Topic.include(DiscourseRpn::TopicExtension)
     Guardian.include(DiscourseRpn::GuardianExtension)
+    CategoryUser.include(DiscourseRpn::CategoryUserExtension)
+    CategoriesController.include(DiscourseRpn::CategoriesControllerExtension)
+    UsersController.include(DiscourseRpn::UsersControllerExtension)
   end
+
+  on(:user_created) { |user| DiscourseRpn::ForcedCategoryWatching.enforce(user) }
 
   # New posts bump with `update_columns`, which skips the topic's commit hook.
   # Whispers never bump, and publishing for them would reveal they exist.
