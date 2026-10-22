@@ -1,6 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import EditTopicTagsButton from "../components/edit-topic-tags-button";
-import TagListIcon from "../components/tag-list-icon";
+import EditTopicTagsButton from "../components/edit-topic-tags-button.gjs";
+import TagListIcon from "../components/tag-list-icon.gjs";
 
 const TAG_WRAPPER_OUTLETS = [
   "bookmark-list-tags-wrapper",
