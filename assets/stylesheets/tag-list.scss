@@ -1,0 +1,56 @@
+.rpn-tag-list-icon {
+  display: inline-block;
+  align-self: baseline;
+  position: relative;
+  top: 0.05em;
+  text-align: center;
+  color: var(--tag-text-color, var(--primary-medium));
+
+  // Tag text size; reset below where `.list-tags` already sets it.
+  font-size: var(--font-down-1);
+
+  // Block, so the bottom edge is the baseline.
+  .d-icon {
+    display: block;
+    width: 0.8em;
+    height: 0.8em;
+  }
+
+  .list-tags > & {
+    font-size: var(--font-0);
+    margin-inline-end: 0.05em;
+  }
+
+  // Flex rows add their own gap; top up to the category badge's 0.33em.
+  .link-bottom-line > & {
+    margin-inline-end: calc(0.33em - var(--space-2));
+  }
+
+  // 0.5em gap, on text 1 / --font-down-1 the icon's size.
+  .d-header .topic-header-extra > &,
+  .search-category > &,
+  .second-line > & {
+    margin-inline-end: calc(0.33em - 0.5em / 0.8706);
+  }
+}
+
+// Join the icon's baseline group in centred flex rows; drop core's indent.
+.rpn-tag-list-icon ~ .discourse-tags {
+  align-self: baseline;
+  margin-inline-start: 0;
+}
+
+.list-tags .edit-topic-tags {
+  padding: 0 var(--space-1);
+  font-size: var(--font-down-2);
+
+  html.discourse-no-touch & {
+    opacity: 0;
+    transition: opacity 0.15s linear;
+  }
+}
+
+html.discourse-no-touch .list-tags:hover .edit-topic-tags,
+html.discourse-no-touch .list-tags .edit-topic-tags:focus-visible {
+  opacity: 1;
+}

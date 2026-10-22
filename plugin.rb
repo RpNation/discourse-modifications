@@ -12,6 +12,8 @@ gem "any_ascii", "0.3.2"
 
 enabled_site_setting :discourse_rpn_enabled
 
+register_asset "stylesheets/index.scss"
+
 module ::DiscourseRpn
   PLUGIN_NAME = "discourse-rpn"
   TOPIC_OWNER_BUMP_ENABLED_CUSTOM_FIELD = "topic_owner_bump_enabled"
