@@ -1,8 +1,10 @@
 en:
   site_settings:
     discourse_rpn_enabled: "Enable RpNation site customisations"
+    locked_min_watch_categories: "Categories every user must watch, at minimum <strong>watching first post</strong>. Users can raise their level to watching but can't lower it. New users get the minimum level automatically. To assign it to existing users, add the same categories to {{setting:default_categories_watching_first_post}} and apply it to existing users."
     topic_owner_bump_cooldown_minutes: "How many minutes a topic owner must wait after the latest reply or bump before they can bump their topic again (60 = 1 hour, 1440 = 1 day, 10080 = 1 week, 43200 = 30 days). Bumping is turned on per category, in the category's settings."
   discourse_rpn:
+    locked_watch_category: "This category is required reading, so its notification level can't be lowered below watching first post."
     topic_owner_bump:
       cooldown_days:
         one: "You can bump this topic again in %{count} day."
