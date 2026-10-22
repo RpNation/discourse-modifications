@@ -16,7 +16,7 @@ module ::DiscourseRpn
         on_failed_policy(:owner_bump_cooldown_elapsed) do |policy|
           render_json_error(policy.reason, status: 422)
         end
-        on_failure { render(json: failed_json, status: 422) }
+        on_failure { render(json: failed_json, status: :unprocessable_content) }
       end
     end
   end
